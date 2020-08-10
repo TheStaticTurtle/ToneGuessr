@@ -30,7 +30,6 @@ const UserSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true,
         },
         displayName: {
             type: String,
@@ -38,7 +37,6 @@ const UserSchema = new mongoose.Schema(
         },
         email: {
             type: String,
-            required: true,
         },
         joined_date: {
             type:Date,
@@ -65,7 +63,11 @@ const UserSchema = new mongoose.Schema(
         },
         googleId: {
             type:Number
+        },
+        facebookId: {
+            type:Number
         }
+
     },
     {
         strict: false

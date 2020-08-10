@@ -10,8 +10,14 @@ function wrapper(passport) {
 
     router.get('/google', passport.authenticate('google', { scope: ["openid","profile", "email"] }));
     router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-        res.redirect('/');
+        res.redirect('/auth/profile');
     });
+
+    router.get('/facebook', passport.authenticate('facebook', { scope: ["email"]}));
+    router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
+        res.redirect('/auth/profile');
+    });
+
 
     router.get('/logout', ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
         req.logout();

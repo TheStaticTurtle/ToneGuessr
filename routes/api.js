@@ -56,7 +56,7 @@ function wrapper(passport) {
 
         req.user.displayName = sanitizeString(req.body.name)
         if(validateEmail(req.body.email)) {
-            req.user.email = sanitizeString(req.body.email)
+            req.user.email = req.body.email;
         }
         if(!isNaN(req.body.age)) {
             req.user.age = Number(req.body.age)

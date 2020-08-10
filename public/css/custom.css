@@ -15,6 +15,10 @@
 	background: #00000055;
 }
 
+.social-icon {
+	height: 100%;
+}
+
 .social-btn .social-icon-wrapper {
 	position: absolute;
 	margin: 10px 10px 10px 10px;
