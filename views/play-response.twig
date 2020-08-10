@@ -1,0 +1,110 @@
+{% extends 'includes/layout.twig' %}
+
+{% block body %}
+    {% include "includes/navbar.twig" %}
+    <main class="page">
+        <section class="clean-block clean-hero" style="background-image: url(../public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+            <div id="testStartPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-info">Frequency response test</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                This test is used to determine the the minimum and maximum frequency that you can ear. When you will press start the there will be a 3second timer after that the frequency will slowly ramp up form 5Hz to 20kHz.
+                            </p>
+                            <p>
+                                Press click the red button when you start hearing sound and release it when you stop earing it. (Do click but keep pressed during the time you ear sound)
+                            </p>
+                            <p>
+                                <b style="color: #f44336">WARNING: This test can get pretty loud</b>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <button onclick="startTest()" style="width: 100%" class="btn btn-lg btn-outline-primary">Start</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="testPage" class="clean-block game-config text-black-50 container" style="z-index: 10; display: none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 id="gameTitle" class="text-info">3.. 2.. 1.. Guess</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <button id="testButton" onmousedown="testButton_onpress()" onmouseup="testButton_onrelease()" class="btn btn-lg test-button">THE RED BUTTON</button>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                    <div class="row" style="margin-top: 40px">
+                        <div class="col">
+                            <div class="progress">
+                                <div id="progressFreq_NotEaring_low" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div id="progressFreq_earing" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div id="progressFreq_NotEaring_high" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p> Current frequency: <span id="currentFrequency">Not started yet</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="testResultPage" class="clean-block game-config text-black-50 container" style="z-index: 10; display: none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-info">Your guess is:</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p> Your frequency response if from <span id="resultTextMin"></span> Hz to <span id="resultTextMax"></span> Hz</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button style="width: 100%" class="btn btn-lg btn-outline-primary" onclick="resetPage()">Retake the test</button>
+                        </div>
+                    </div>
+
+                    {% if user %}
+                        <div class="row">
+                            <div class="col">
+                                <p>Result saved to your profile</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col">
+                                <p>As you are not currently logged in your result won't be saved.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="/public/js/frequencyResponseTest.js"></script>
+{% endblock %}

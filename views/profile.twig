@@ -78,11 +78,14 @@
                         <div class="col">
                             <h3>Frequency response</h3>
                             {% if user.frequencyResponse_low == -1 %}
-                                <button class="btn btn-lg btn-outline-dark" style="width: 100%">Take the test</button>
+                                <a href="/play/response" class="btn btn-lg btn-outline-dark" style="width: 100%">Take the test</a>
                             {% else %}
-                                <p><b>Minimum frequency:</b> {{ user.frequencyResponse_low }} Hz</p>
-                                <p><b>Maximum frequency:</b> {{ user.frequencyResponse_high }} Hz</p>
-                                <button class="btn btn-outline-dark" style="width: 100%">Redo the test</button>
+                                <p>
+                                    <b>Minimum frequency:</b> {{ user.frequencyResponse_low }} Hz
+                                    <br>
+                                    <b>Maximum frequency:</b> {{ user.frequencyResponse_high }} Hz
+                                </p>
+                                <a href="/play/response" class="btn btn-outline-dark" style="width: 100%">Redo the test</a>
                             {% endif %}
                         </div>
                     </div>

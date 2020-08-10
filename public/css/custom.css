@@ -139,3 +139,21 @@
 	-ms-transform: rotate(45deg);
 	transform: rotate(45deg);
 }
+
+/*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+.test-button {
+	color: #fff;
+	border-color: #ab000d; /*set the color you want here*/
+	background-color: #e53935;
+	border-width: 2px;
+}
+.test-button:hover {
+	color: #fff;
+}
+.test-button:active, .open>.dropdown-toggle.btn-primary {
+	color: #fff;
+	background-color: #e57373;
+	border-color: #ab000d; /*set the color you want here*/
+	box-shadow: #ab000d55 1px 1px 1px 1px;
+	border-width: 2px;
+}
