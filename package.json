@@ -6,11 +6,21 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-mongo": "^3.2.0",
     "cookie-parser": "~1.4.4",
+    "cookie-session": "^1.4.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "googleapis": "^58.0.0",
     "http-errors": "~1.6.3",
+    "mongoose": "^5.9.28",
+    "mongoose-findorcreate": "^3.0.0",
     "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0",
     "twig": "~0.10.3"
   }
 }

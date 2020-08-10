@@ -1,0 +1,34 @@
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+	<div class="container">
+		<a class="navbar-brand logo" href="/">ToneGuessr</a>
+
+		<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse"
+			 id="navcol-1">
+			<ul class="nav navbar-nav ml-auto">
+				<li class="nav-item" role="presentation"><a class="nav-link active" href="/">Home</a></li>
+				<li class="nav-item" role="presentation"><a class="nav-link" href="features.html">Features</a></li>
+
+				{% if user %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" style="cursor: pointer" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="icon-user icon"></i> Profile
+						</a>
+						<div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+							<img class="dropdown-item" style="padding: 15px; width: 100%; border-radius: 50%;" src="{{ user.profilePicture }}">
+							<p class="dropdown-header">{{ user.displayName }}</p>
+							<a class="dropdown-item" href="/auth/profile">My account</a>
+							<a class="dropdown-item" href="/auth/logout">Log out</a>
+						</div>
+					</li>
+				{% else %}
+					<li class="nav-item" role="presentation"><a class="nav-link" href="/login">Login</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+</nav>

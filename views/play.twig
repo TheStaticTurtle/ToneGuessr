@@ -1,0 +1,147 @@
+{% extends 'includes/layout.twig' %}
+
+{% block body %}
+    {% include "includes/navbar.twig" %}
+    <main class="page">
+        <section class="clean-block clean-hero" style="background-image: url(public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+            <div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-info">Game settings</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><p>Minimum frequency: </p></div>
+                        <div class="col-7">
+                            <div class="form-group">
+                                <div class="slidecontainer">
+                                    <input type="range" min="10" max="23000" value="20" step="10" class="slider" id="minFrequencySilder" oninput="updateMinimumFrequency(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2"><p id="minFrequencyText">20 Hz</p></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><p>Maximum frequency: </p></div>
+                        <div class="col-7">
+                            <div class="form-group">
+                                <div class="slidecontainer">
+                                    <input type="range" min="10" max="8000" value="5000" step="10" class="slider" id="maxFrequencySilder" oninput="updateMaximumFrequency(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2"><p id="maxFrequencyText">6000 Hz</p></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><p>Tone duration: </p></div>
+                        <div class="col-7">
+                            <div class="form-group">
+                                <div class="slidecontainer">
+                                    <input type="range" min="500" max="5000" value="1000" step="500" class="slider" id="toneDurationSlider" oninput="updateToneDuration(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2"><p id="toneDurationText">1000 ms</p></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><p>Allow higher frequency (8kHz-20kHz): </p></div>
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" onclick="updateMaximumFrequencyBounds(this.checked)">
+                                    <span class="checkbox-checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <button onclick="startGame()" style="width: 100%" class="btn btn-lg btn-outline-primary">Start</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="gamePage" class="clean-block game-config text-black-50 container" style="z-index: 10; display: none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 id="gameTitle" class="text-info">3.. 2.. 1.. Guess</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3"><p>Frequency: </p></div>
+                        <div class="col-7">
+                            <div class="form-group">
+                                <div class="slidecontainer">
+                                    <input type="range" min="10" max="23000" value="20" step="10" class="slider" id="selectedFrequencySilder" oninput="updateSelectedFrequency(this.value)">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2"><p id="selectedFrequencyText">20 Hz</p></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button id="guessButton" style="width: 100%" class="btn btn-lg btn-outline-primary" onclick="guessFrequency()">Guess</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div id="gameEndPage" class="clean-block game-config text-black-50 container" style="z-index: 10; display: none">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-info">Your guess is:</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p id="resultText"></p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button style="width: 100%" class="btn btn-lg btn-outline-primary" onclick="replaySameSettings()">Replay with the same settings</button>
+                        </div>
+                        <div class="col">
+                            <button style="width: 100%" class="btn btn-lg btn-outline-primary" onclick="resetPage()">Change settings</button>
+                        </div>
+                    </div>
+
+                    {% if user %}
+                        <div class="row">
+                            <div class="col">
+                                <p>Score saved to your profile</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <div class="col">
+                                <p>As you are not currently logged in your guess won't be saved.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="/public/js/game.js"></script>
+{% endblock %}

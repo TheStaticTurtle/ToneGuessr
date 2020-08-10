@@ -1,0 +1,44 @@
+
+<footer class="page-footer dark">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-3">
+				<h5>Get started</h5>
+				<ul>
+					<li><a href="/">Home</a></li>
+
+					{% if user %}
+						<li><a href="/auth/logout">Logout</a></li>
+					{% else %}
+						<li><a href="/login">Login</a></li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<h5>About me</h5>
+				<ul>
+					<li><a href="https://blog.thestaticturtle.fr">My blog</a></li>
+					<li><a href="mailto:contact@thestaticturtle.fr">Contact me</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<h5>Support</h5>
+				<ul>
+					<li><a href="/faq">FAQ</a></li>
+					<li><a href="https://github.com/TheStaticTurtle/ToneGuessr">Source code</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-3">
+				<h5>Legal</h5>
+				<ul>
+					<li><a href="/faq/tos">Terms of Service</a></li>
+					<li><a href="/faq/tou">Terms of Use</a></li>
+					<li><a href="/faq/privacy">Privacy Policy</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer-copyright">
+		<p>© 2018 Copyright Text</p>
+	</div>
+</footer>

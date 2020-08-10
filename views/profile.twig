@@ -1,0 +1,193 @@
+{% extends 'includes/layout.twig' %}
+
+{% block body %}
+    {% include "includes/navbar.twig" %}
+    <main class="page">
+        <section class="clean-block clean-hero" style="background-image: url(/public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+            <div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h2 class="text-info">Profile</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <img class="dropdown-item" style="width:100%; border-radius: 50%;" src="{{ user.profilePicture }}">
+                        </div>
+                        <div class="col-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-user icon"></i></span>
+                                </div>
+                                <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.displayName }}">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-envelope icon"></i></span>
+                                </div>
+                                <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.email }}">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-calendar icon"></i></span>
+                                </div>
+                                <span class="form-control input-group-text">Joined the {{ user.joined_date }}</span>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-chart icon"></i></span>
+                                </div>
+                                <span class="form-control input-group-text">{{ guesss.length }} Guesses</span>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-music-tone icon"></i></span>
+                                </div>
+                                {% if guesss_accuracy == -1 %}
+                                    <span class="form-control input-group-text">Unknown accuracy</span>
+                                {% else %}
+                                    <span class="form-control input-group-text">General accuracy: {{ guesss_accuracy }} Hz</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-lg btn btn-outline-success" style="width: 100%">Save changes</button>
+                                </div >
+                                <div class="col">
+                                    <button class="btn btn-lg btn btn-outline-danger" data-toggle="modal" data-target="#confirmGuessesReset" style="width: 100%">Reset guesses</button>
+
+                                </div >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col">
+                            <h2 class="text-info" style="margin: 0px">Stats</h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h3>Frequency response</h3>
+                            {% if user.frequencyResponse_low == -1 %}
+                                <button class="btn btn-lg btn-outline-dark" style="width: 100%">Take the test</button>
+                            {% else %}
+                                <p><b>Minimum frequency:</b> {{ user.frequencyResponse_low }} Hz</p>
+                                <p><b>Maximum frequency:</b> {{ user.frequencyResponse_high }} Hz</p>
+                                <button class="btn btn-outline-dark" style="width: 100%">Redo the test</button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col">
+                            <h3>Accuracy graph</h3>
+                            <canvas id="accuracyPerFrequencyChart" width="100%" height="35"></canvas>
+                        </div>
+                    </div>
+
+                    <script>
+                        var ctx = document.getElementById('accuracyPerFrequencyChart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: [
+                                    {% for freq in accuracyPerFrequencyChart_keys %}
+                                        '{{ freq }} - {{ freq+250 }} Hz',
+                                    {% endfor %}
+                                ],
+                                datasets: [{
+                                    label: 'Accuracy per frequency (Closest to center the better)',
+                                    data: [
+                                        {% for accuracy in accuracyPerFrequencyChart %}
+                                            {{ accuracy }},
+                                        {% endfor %}
+                                    ],
+                                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                                    borderColor: 'rgba(255, 159, 64, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                tooltips: {
+                                    enabled: false
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        display: true,
+                                    }],
+                                    yAxes: [{
+                                        display: true,
+                                        ticks: {
+                                            min: -250,
+                                            max: 250
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
+
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col">
+                            <table class="table">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Actual frequency</th>
+                                    <th scope="col">Guessed frequency</th>
+                                    <th scope="col">Accuracy</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for guess in guesss %}
+                                        <tr>
+                                            <th scope="row">{{ guess._id }}</th>
+                                            <td>{{ guess.when }}</td>
+                                            <td>{{ guess.choosedFrequency }} Hz</td>
+                                            <td>{{ guess.guessedFrequency }} Hz</td>
+                                            <td>{{ guess.guessedFrequency - guess.choosedFrequency }} Hz</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div id="confirmGuessesReset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset guesses</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want to reset all your previous guesses. This can not be reverted.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="button" class="btn btn-danger" onclick="sendResetGuesses()">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/game.js"></script>
+{% endblock %}
