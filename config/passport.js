@@ -20,7 +20,6 @@ passport.use(new GoogleStrategy({
         callbackURL: secrets.auth.google.callback_uri
     },
     function(token, tokenSecret, profile, done) {
-        console.log(profile);
         User.findOne({googleId: profile.id}).then((currentUser)=>{
             if(currentUser){
                 //if we already have a record with the given profile ID
@@ -32,7 +31,7 @@ passport.use(new GoogleStrategy({
                     email: profile.emails[0].value,
                     displayName: profile.displayName,
                     name: profile.name.givenName,
-                    profilePicture: profile.photos[0].value,
+                    profilePicture: profile.photos ? profile.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg",
                 }).save().then((newUser) =>{
                     done(null, newUser);
                 });
@@ -44,7 +43,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
         clientID: secrets.auth.facebook.app_id,
         clientSecret: secrets.auth.facebook.app_secret,
-        callbackURL: secrets.auth.facebook.callback_uri
+        callbackURL: secrets.auth.facebook.callback_uri,
+        profileFields: ['id', 'displayName', 'name', 'gender', 'picture.type(large)']
     },
     function(accessToken, refreshToken, profile, done) {
         User.findOne({facebookId: profile.id}).then((currentUser)=>{
@@ -58,7 +58,7 @@ passport.use(new FacebookStrategy({
                     email: profile.email,
                     displayName: profile.displayName,
                     name: profile.name.givenName,
-                    profilePicture: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg",
+                    profilePicture: profile.photos ? profile.photos[0].value : "https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg",
                 }).save().then((newUser) =>{
                     done(null, newUser);
                 });
