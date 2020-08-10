@@ -18,6 +18,11 @@ function wrapper(passport) {
         res.redirect('/auth/profile');
     });
 
+    router.get('/twitter', passport.authenticate('twitter', { scope: ["email"]}));
+    router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function(req, res) {
+        res.redirect('/auth/profile');
+    });
+
 
     router.get('/logout', ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
         req.logout();

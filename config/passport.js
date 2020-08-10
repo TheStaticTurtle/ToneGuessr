@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+const TwitterStrategy = require('passport-twitter').Strategy;
 const User = require("../models/Users").user
 
 const secrets = require("./secrets.json")
@@ -46,7 +47,6 @@ passport.use(new FacebookStrategy({
         callbackURL: secrets.auth.facebook.callback_uri
     },
     function(accessToken, refreshToken, profile, done) {
-        console.log(profile)
         User.findOne({facebookId: profile.id}).then((currentUser)=>{
             if(currentUser){
                 //if we already have a record with the given profile ID
@@ -59,6 +59,32 @@ passport.use(new FacebookStrategy({
                     displayName: profile.displayName,
                     name: profile.name.givenName,
                     profilePicture: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg",
+                }).save().then((newUser) =>{
+                    done(null, newUser);
+                });
+            }
+        })
+    }
+));
+
+passport.use(new TwitterStrategy({
+        consumerKey: secrets.auth.twitter.consumerKey,
+        consumerSecret: secrets.auth.twitter.consumerSecret,
+        callbackURL: secrets.auth.twitter.callback_uri
+    },
+    function(token, tokenSecret, profile, done) {
+        User.findOne({twitterId: profile.id}).then((currentUser)=>{
+            if(currentUser){
+                //if we already have a record with the given profile ID
+                done(null, currentUser);
+            } else{
+                //if not, create a new user
+                new User({
+                    twitterId: profile.id,
+                    email: profile.email,
+                    displayName: profile.displayName,
+                    name: profile.username,
+                    profilePicture: profile._json.profile_image_url_https,
                 }).save().then((newUser) =>{
                     done(null, newUser);
                 });

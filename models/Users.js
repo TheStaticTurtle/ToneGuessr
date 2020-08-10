@@ -66,6 +66,9 @@ const UserSchema = new mongoose.Schema(
         },
         facebookId: {
             type:Number
+        },
+        twitterId: {
+            type:Number
         }
 
     },
