@@ -15,6 +15,7 @@ var authRouter = require('./routes/auth')(passport);
 var loginRouter = require('./routes/login')(passport);
 var playRouter = require('./routes/play')(passport);
 var apiRouter = require('./routes/api')(passport);
+var faqRouter = require('./routes/faq')(passport);
 
 mongoose
     .connect(secrets.database.mongodb_uri, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -66,6 +67,7 @@ app.use('/', loginRouter);
 app.use('/play', playRouter);
 app.use('/auth', authRouter);
 app.use('/api',  apiRouter);
+app.use('/faq',  faqRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,27 @@
 {% extends 'includes/layout.twig' %}
 
 {% block body %}
-  <h1>{{message}}</h1>
-  <h2>{{error.status}}</h2>
-  <pre>{{error.stack}}</pre>
+  {% include "includes/navbar.twig" %}
+  <main class="page">
+    <section class="clean-block clean-hero" style="background-image: url(/public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+      <div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h1 class="text-info">Error</h1>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col" >
+              <h2 style="margin: 0px">{{error.status}} - {{message}}</h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </main>
+  {% include "includes/footer.twig" %}
 {% endblock %}

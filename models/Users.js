@@ -44,6 +44,10 @@ const UserSchema = new mongoose.Schema(
             type:Date,
             default: Date.now()
         },
+        age: {
+            type:Number,
+            default: -1
+        },
 
         toneGuesses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'tone_guess' }],
 

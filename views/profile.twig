@@ -21,14 +21,27 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user icon"></i></span>
                                 </div>
-                                <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.displayName }}">
+                                <input id="username" type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.displayName }}">
                             </div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-envelope icon"></i></span>
                                 </div>
-                                <input type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.email }}">
+                                <input id="email" type="text" class="form-control" aria-describedby="basic-addon3" value="{{ user.email }}">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-mustache icon"></i></span>
+                                </div>
+
+                                {% if user.age == -1 %}
+                                    <input id="age" type="number" class="form-control" aria-describedby="basic-addon3" placeholder="Unknown age">
+                                {% else %}
+                                    <input id="age" type="number" class="form-control" aria-describedby="basic-addon3" placeholder="Age" value="{{ user.age }}">
+                                    <span class="form-control input-group-text">Year old</span>
+                                {% endif %}
                             </div>
 
                             <div class="input-group mb-3">
@@ -58,10 +71,10 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <button class="btn btn-lg btn btn-outline-success" style="width: 100%">Save changes</button>
+                                    <button class="btn btn-lg btn btn-outline-success" onclick="saveUserData()" style="width: 100%">Save changes</button>
                                 </div >
                                 <div class="col">
-                                    <button class="btn btn-lg btn btn-outline-danger" data-toggle="modal" data-target="#confirmGuessesReset" style="width: 100%">Reset guesses</button>
+                                    <button class="btn btn-lg btn btn-outline-danger" data-toggle="modal" data-target="#confirmGuessesReset" style="width: 100%">Reset my account</button>
 
                                 </div >
                             </div>
@@ -131,8 +144,8 @@
                                     yAxes: [{
                                         display: true,
                                         ticks: {
-                                            min: -250,
-                                            max: 250
+                                            min: -150,
+                                            max: 150
                                         }
                                     }]
                                 }
@@ -166,6 +179,14 @@
                             </table>
                         </div>
                     </div>
+
+
+
+                    <div class="row" style="margin-top: 35px">
+                        <div class="col">
+                            <button class="btn btn-lg btn btn-danger" data-toggle="modal" data-target="#confirmDelete" style="width: 100%">Delete my account</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -191,6 +212,23 @@
             </div>
         </div>
     </div>
-
-    <script src="/public/js/game.js"></script>
+    <div id="confirmDelete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset guesses</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure that you want to delete your account. This can not be reverted.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="button" class="btn btn-danger" onclick="sendDeleteAccount()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

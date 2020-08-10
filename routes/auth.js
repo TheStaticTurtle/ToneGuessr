@@ -18,7 +18,7 @@ function wrapper(passport) {
         res.redirect("/");
     });
 
-    router.get('/profile', function(req, res){
+    router.get('/profile',ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
         ToneGuess.find({ user : req.user._id }).exec(function (err, guesss) {
             if (err) { console.log(err); return; }
 

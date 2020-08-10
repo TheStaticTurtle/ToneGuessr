@@ -1,0 +1,37 @@
+{% extends '../includes/layout.twig' %}
+
+{% block body %}
+	{% include "../includes/navbar.twig" %}
+	<main class="page">
+		<section class="clean-block clean-hero" style="background-image: url(/public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+			<div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<h2 class="text-info">F.A.Q.</h2>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col" style="text-align: left">
+							<h3>Do ToneGuessr save any data?</h3>
+							<p>Yes, obviously, without saving data the website wouldn't work</p>
+
+							<h3>Do ToneGuessr process any data?</h3>
+							<p>Apart from the graph in your profile page, there is no further processing</p>
+
+							<h3>How to reset my data?</h3>
+							<p>Just press the reset button on your profile page</p>
+
+							<h3>Want to ask a question that isn't there?</h3>
+							<p>Send a mail to <a href="mailto:contact@thestaticturtle.fr">contact@thestaticturtle.fr</a></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</section>
+	</main>
+	{% include "../includes/footer.twig" %}
+{% endblock %}
