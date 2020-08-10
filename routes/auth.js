@@ -50,7 +50,7 @@ function wrapper(passport) {
             for (let i=20; i<10000; i+= 300) {
                 p = {mean:0, "count":0}
                 for(let o=0; o<guesss.length; o++) {
-                    if(guesss[o].choosedFrequency < i && guesss[o].choosedFrequency > i-200) {
+                    if(guesss[o].choosedFrequency > i && guesss[o].choosedFrequency < i+300) {
                         p.mean += guesss[o].guessedFrequency - guesss[o].choosedFrequency;
                         p.count += 1;
                     }
