@@ -5,12 +5,12 @@
 			<div class="col-sm-3">
 				<h5>Get started</h5>
 				<ul>
-					<li><a href="/">Home</a></li>
+					<li><a href="{{ site.base_uri }}">Home</a></li>
 
 					{% if user %}
-						<li><a href="/auth/logout">Logout</a></li>
+						<li><a href="{{ site.base_uri }}auth/logout">Logout</a></li>
 					{% else %}
-						<li><a href="/login">Login</a></li>
+						<li><a href="{{ site.base_uri }}login">Login</a></li>
 					{% endif %}
 				</ul>
 			</div>
@@ -24,20 +24,20 @@
 			<div class="col-sm-3">
 				<h5>Support</h5>
 				<ul>
-					<li><a href="/faq">FAQ</a></li>
+					<li><a href="{{ site.base_uri }}faq">FAQ</a></li>
 					<li><a href="https://github.com/TheStaticTurtle/ToneGuessr">Source code</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-3">
 				<h5>Legal</h5>
 				<ul>
-					<li><a href="/faq/tos">Terms of Service / Use</a></li>
-					<li><a href="/faq/privacy">Privacy Policy</a></li>
+					<li><a href="{{ site.base_uri }}faq/tos">Terms of Service / Use</a></li>
+					<li><a href="{{ site.base_uri }}faq/privacy">Privacy Policy</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="footer-copyright">
-		<p>© 2018 Copyright Text</p>
+		<p>TheStaticTurtle - GPL3</p>
 	</div>
 </footer>

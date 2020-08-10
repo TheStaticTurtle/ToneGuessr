@@ -25,6 +25,12 @@ mongoose
 
 var app = express();
 
+app.locals={
+    site: {
+        base_uri: secrets.base_uri
+    }
+};
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
 app.set('view cache', false)

@@ -3,10 +3,10 @@
 {% block body %}
 	{% include "includes/navbar.twig" %}
 	<main class="page landing-page">
-		<section class="clean-block clean-hero" style="background-image: url(public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+		<section class="clean-block clean-hero" style="background-image: url({{ site.base_uri }}public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
 			<div class="text">
 				<h2>ToneGuessr</h2>
-				<p>Test your hearing accuracy by guessing a random audio frequency.&nbsp;</p><a href="/play" class="btn btn-outline-light btn-lg" type="button">Play now !</a>
+				<p>Test your hearing accuracy by guessing a random audio frequency.&nbsp;</p><a href="{{ site.base_uri }}play" class="btn btn-outline-light btn-lg" type="button">Play now !</a>
 			</div>
 		</section>
 	</main>

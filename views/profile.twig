@@ -3,7 +3,7 @@
 {% block body %}
     {% include "includes/navbar.twig" %}
     <main class="page">
-        <section class="clean-block clean-hero" style="background-image: url(/public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+        <section class="clean-block clean-hero" style="background-image: url({{ site.base_uri }}public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
             <div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
                 <div class="container">
                     <div class="row">
@@ -91,14 +91,14 @@
                         <div class="col">
                             <h3>Frequency response</h3>
                             {% if user.frequencyResponse_low == -1 %}
-                                <a href="/play/response" class="btn btn-lg btn-outline-dark" style="width: 100%">Take the test</a>
+                                <a href="{{ site.base_uri }}lay/response" class="btn btn-lg btn-outline-dark" style="width: 100%">Take the test</a>
                             {% else %}
                                 <p>
                                     <b>Minimum frequency:</b> {{ user.frequencyResponse_low }} Hz
                                     <br>
                                     <b>Maximum frequency:</b> {{ user.frequencyResponse_high }} Hz
                                 </p>
-                                <a href="/play/response" class="btn btn-outline-dark" style="width: 100%">Redo the test</a>
+                                <a href="{{ site.base_uri }}play/response" class="btn btn-outline-dark" style="width: 100%">Redo the test</a>
                             {% endif %}
                         </div>
                     </div>

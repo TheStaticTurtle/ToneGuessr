@@ -3,7 +3,7 @@
 {% block body %}
     {% include "includes/navbar.twig" %}
     <main class="page">
-        <section class="clean-block clean-hero" style="background-image: url(public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
+        <section class="clean-block clean-hero" style="background-image: url({{ site.base_uri }}public/img/backgrounds/pexels-pixabay-164743.jpg);color: rgba(9, 162, 255, 0.85);">
             <div id="gameSettingPage" class="clean-block game-config text-black-50 container" style="z-index: 10;">
                 <div class="container">
                     <div class="row">
@@ -143,5 +143,5 @@
         </section>
     </main>
 
-    <script src="/public/js/game.js"></script>
+    <script src="{{ site.base_uri }}public/js/game.js"></script>
 {% endblock %}
