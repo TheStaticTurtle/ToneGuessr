@@ -1,5 +1,6 @@
 const express = require('express');
 const ensured_logging = require('connect-ensure-login');
+const secrets = require("../config/secrets.json")
 
 const models = require("../models/Users")
 const User = models.user
@@ -16,7 +17,7 @@ function validateEmail(email) {
 function wrapper(passport) {
     const router = express.Router();
 
-    router.post('/game/add',ensured_logging.ensureLoggedIn("/auth/login"), function (req, res) {
+    router.post('/game/add',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function (req, res) {
         g = new ToneGuess({ user: req.user.id, choosedFrequency: req.body.randomFequency, guessedFrequency:req.body.selectedFrequency, when:Date.now() })
         g.save(function (err) {
             if (err) console.log(err); // saved!
@@ -26,7 +27,7 @@ function wrapper(passport) {
         })
     });
 
-    router.post('/user/reset',ensured_logging.ensureLoggedIn("/auth/login"), function (req, res) {
+    router.post('/user/reset',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function (req, res) {
         req.user.frequencyResponse_low  = -1;
         req.user.frequencyResponse_high = 20000;
 
@@ -42,7 +43,7 @@ function wrapper(passport) {
     });
 
 
-    router.post('/user/delete',ensured_logging.ensureLoggedIn("/auth/login"), function (req, res) {
+    router.post('/user/delete',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function (req, res) {
         ToneGuess.find({ user : req.user._id }).deleteMany().exec(function (err, guesss) {
             if (err) { console.log(err); return; }
 
@@ -52,7 +53,7 @@ function wrapper(passport) {
         });
     });
 
-    router.post('/user/save',ensured_logging.ensureLoggedIn("/auth/login"), function (req, res) {
+    router.post('/user/save',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function (req, res) {
 
         req.user.displayName = sanitizeString(req.body.name)
         if(validateEmail(req.body.email)) {
@@ -70,7 +71,7 @@ function wrapper(passport) {
         });
     });
 
-    router.post('/response_test',ensured_logging.ensureLoggedIn("/auth/login"), function (req, res) {
+    router.post('/response_test',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function (req, res) {
         console.log(req.body);
         req.user.frequencyResponse_low  = req.body.min;
         req.user.frequencyResponse_high = req.body.max;

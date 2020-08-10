@@ -25,12 +25,12 @@ function wrapper(passport) {
     });
 
 
-    router.get('/logout', ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
+    router.get('/logout', ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function(req, res){
         req.logout();
         res.redirect(secrets.base_uri);
     });
 
-    router.get('/profile',ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
+    router.get('/profile',ensured_logging.ensureLoggedIn(secrets.base_uri+"auth/login"), function(req, res){
         ToneGuess.find({ user : req.user._id }).exec(function (err, guesss) {
             if (err) { console.log(err); return; }
 
