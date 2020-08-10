@@ -20,6 +20,18 @@
 		<script src="{{ site.base_uri }}public/js/axios.min.js"></script>
 		<script src="{{ site.base_uri }}public/js/jquery.min.js"></script>
 		<script src="{{ site.base_uri }}public/js/Chart.min.js"></script>
+
+		{% if site.ga_tag %}
+			<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga_tag }}"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', '{{ site.ga_tag }}');
+			</script>
+		{% endif %}
+
 		<script>
 			const base_uri = "{{ site.base_uri }}";
 		</script>

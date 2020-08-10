@@ -27,7 +27,8 @@ var app = express();
 
 app.locals={
     site: {
-        base_uri: secrets.base_uri
+        base_uri: secrets.base_uri,
+        ga_tag: secrets.ga_tag
     }
 };
 
