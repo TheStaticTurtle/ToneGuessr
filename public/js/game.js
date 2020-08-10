@@ -138,3 +138,30 @@ function resetPage() {
     document.getElementById("gamePage").style.display = "none";
     document.getElementById("gameEndPage").style.display = "none";
 }
+
+let context = new AudioContext()
+let gain2 = context.createGain()
+let ocsillator2 = context.createOscillator()
+
+function startPlayingSound() {
+    try {
+        ocsillator2.stop(context.currentTime)
+    } catch (e) { }
+
+    gain2 = context.createGain()
+    ocsillator2 = context.createOscillator()
+
+    ocsillator2.connect(gain2)
+    gain2.connect(context.destination)
+    gain2.gain.setValueAtTime(0.15, context.currentTime);
+    ocsillator2.frequency.value = document.getElementById("selectedFrequencySilder").value
+    ocsillator2.start(0)
+}
+
+function stopPlayingSound() {
+    ocsillator2.stop(context.currentTime)
+}
+
+function updateFrequency() {
+    ocsillator2.frequency.value = document.getElementById("selectedFrequencySilder").value
+}
