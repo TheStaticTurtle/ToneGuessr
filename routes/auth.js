@@ -47,11 +47,12 @@ function wrapper(passport) {
 
             let accuracyPerFrequencyChart = []
             let accuracyPerFrequencyChart_keys = []
-            for (let i=20; i<10000; i+= 300) {
+            for (let i=20; i<22000; i+= 300) {
                 p = {mean:0, "count":0}
                 for(let o=0; o<guesss.length; o++) {
                     if(guesss[o].choosedFrequency > i && guesss[o].choosedFrequency < i+300) {
-                        p.mean += guesss[o].guessedFrequency - guesss[o].choosedFrequency;
+                        x = guesss[o].guessedFrequency - guesss[o].choosedFrequency
+                        p.mean += x > 0 ? x : x*-1;
                         p.count += 1;
                     }
                 }
