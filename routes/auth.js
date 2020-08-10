@@ -1,5 +1,6 @@
 const express = require('express');
 const ensured_logging = require('connect-ensure-login');
+const secrets = require("../config/secrets.json")
 
 const models = require("../models/Users")
 const User = models.user
@@ -10,23 +11,23 @@ function wrapper(passport) {
 
     router.get('/google', passport.authenticate('google', { scope: ["openid","profile", "email"] }));
     router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-        res.redirect('/auth/profile');
+        res.redirect(secrets.base_uri+'auth/profile');
     });
 
     router.get('/facebook', passport.authenticate('facebook', { scope: ["email"]}));
     router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), function(req, res) {
-        res.redirect('/auth/profile');
+        res.redirect(secrets.base_uri+'auth/profile');
     });
 
     router.get('/twitter', passport.authenticate('twitter', { scope: ["email"]}));
     router.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function(req, res) {
-        res.redirect('/auth/profile');
+        res.redirect(secrets.base_uri+'auth/profile');
     });
 
 
     router.get('/logout', ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
         req.logout();
-        res.redirect("/");
+        res.redirect(secrets.base_uri);
     });
 
     router.get('/profile',ensured_logging.ensureLoggedIn("/auth/login"), function(req, res){
@@ -70,7 +71,7 @@ function wrapper(passport) {
     });
 
     router.get('/login', function(req, res){
-        res.redirect("/login");
+        res.redirect(secrets.base_uri+"login");
     });
 
     return router

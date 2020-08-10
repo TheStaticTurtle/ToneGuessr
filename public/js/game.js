@@ -115,7 +115,7 @@ function guessFrequency() {
     let offsetPositive = offset < 0 ? offset * -1 : offset
     document.getElementById("resultText").innerText = "Your guess is " + offset + " Hz off. The right frequency was " + choosedFreq + " Hz. "
 
-    axios.post('/api/game/add', {
+    axios.post(base_uri+'api/game/add', {
         randomFequency: choosedFreq,
         selectedFrequency: selectedFrequency
     }).then(function (response) {

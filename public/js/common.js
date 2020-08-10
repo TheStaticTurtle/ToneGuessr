@@ -1,5 +1,5 @@
 function sendResetGuesses() {
-    axios.post('/api/user/reset', {
+    axios.post(base_uri+'api/user/reset', {
     }).then(function (response) {
         $("#confirmGuessesReset").modal('hide')
         location.reload();
@@ -10,7 +10,7 @@ function sendResetGuesses() {
     });
 }
 function sendDeleteAccount() {
-    axios.post('/api/user/delete', {
+    axios.post(base_uri+'api/user/delete', {
     }).then(function (response) {
         $("#confirmDelete").modal('hide')
         setTimeout(function () {
@@ -30,7 +30,7 @@ function saveUserData() {
     let n_age   = document.getElementById("age").value
     n_age = n_age === "" ? -1 : n_age
 
-    axios.post('/api/user/save', {
+    axios.post(base_uri+'api/user/save', {
         name: n_name,
         email:n_email,
         age: n_age

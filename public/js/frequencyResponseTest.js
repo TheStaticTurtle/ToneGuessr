@@ -137,7 +137,7 @@ function resultPage() {
     let min = Number(document.getElementById("resultTextMin").innerText);
     let max = Number(document.getElementById("resultTextMax").innerText);
 
-    axios.post('/api/response_test', {
+    axios.post(base_uri+'api/response_test', {
         min: min,
         max: max
     }).then(function (response) {
